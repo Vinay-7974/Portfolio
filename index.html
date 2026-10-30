@@ -181,11 +181,11 @@
             <span>OPEN FOR SOFTWARE DEVELOPER OPPORTUNITIES</span>
           </div>
 
-          <!-- Main Dynamic Heading -->
-          <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
-            Hi, I'm <span class="text-cyan-400">Vinay</span><br/>
-            Building <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400" id="typewriter-text">
-              Full Stack Java Solutions
+          <!-- Main Dynamic Heading (Stabilized Height to stop screen shaking) -->
+          <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.2] min-h-[140px] sm:min-h-[190px] flex flex-col justify-start">
+            <span>Hi, I'm <span class="text-cyan-400">Vinay</span></span>
+            <span class="text-2xl sm:text-4xl lg:text-5xl mt-2 text-slate-300 font-bold block min-h-[1.4em]">
+              Building <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 border-r-2 border-cyan-400 pr-1 inline-block" id="typewriter-text">Job Portal Backend Engine</span>
             </span>
           </h1>
 
@@ -249,7 +249,7 @@
         </div>
 
         <!-- Floating Spring Boot Code Showcase -->
-        <div class="lg:col-span-5 relative animate-float">
+        <div class="lg:col-span-5 relative animate-float will-change-transform">
           <div class="glass-card rounded-2xl overflow-hidden border border-slate-700/60">
             <!-- IDE Window Top Bar -->
             <div class="bg-[#0b1329] px-4 py-3 flex items-center justify-between border-b border-slate-800">
@@ -760,27 +760,27 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-xs font-mono text-slate-400 mb-1.5">Your Name *</label>
-                  <input type="text" id="form-name" required placeholder="e.g. Hiring Manager / Recruiter" class="w-full bg-[#0a1120] border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition-colors" />
+                  <input type="text" id="form-name" name="name" required placeholder="e.g. Hiring Manager / Recruiter" class="w-full bg-[#0a1120] border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition-colors" />
                 </div>
                 <div>
                   <label class="block text-xs font-mono text-slate-400 mb-1.5">Your Email *</label>
-                  <input type="email" id="form-email" required placeholder="recruiter@company.com" class="w-full bg-[#0a1120] border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition-colors" />
+                  <input type="email" id="form-email" name="email" required placeholder="recruiter@company.com" class="w-full bg-[#0a1120] border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition-colors" />
                 </div>
               </div>
 
               <div>
                 <label class="block text-xs font-mono text-slate-400 mb-1.5">Opportunity Type</label>
-                <select id="form-subject" class="w-full bg-[#0a1120] border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-300 focus:outline-none focus:border-cyan-400 transition-colors">
-                  <option value="fulltime">Full-time Software Developer / Java Developer</option>
-                  <option value="internship">Internship / Trainee Developer Role</option>
-                  <option value="freelance">Freelance Java / Spring Boot Project</option>
-                  <option value="general">Networking & General Inquiry</option>
+                <select id="form-subject" name="opportunity" class="w-full bg-[#0a1120] border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-300 focus:outline-none focus:border-cyan-400 transition-colors">
+                  <option value="Full-time Software Developer / Java Developer">Full-time Software Developer / Java Developer</option>
+                  <option value="Internship / Trainee Developer Role">Internship / Trainee Developer Role</option>
+                  <option value="Freelance Java / Spring Boot Project">Freelance Java / Spring Boot Project</option>
+                  <option value="Networking & General Inquiry">Networking & General Inquiry</option>
                 </select>
               </div>
 
               <div>
                 <label class="block text-xs font-mono text-slate-400 mb-1.5">Message / Job Description *</label>
-                <textarea id="form-msg" required rows="4" placeholder="Hello Vinay, we would like to interview you for the Software Developer opening..." class="w-full bg-[#0a1120] border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
+                <textarea id="form-msg" name="message" required rows="4" placeholder="Hello Vinay, we would like to interview you for the Software Developer opening..." class="w-full bg-[#0a1120] border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
               </div>
 
               <!-- Message feedback notification -->
@@ -885,7 +885,12 @@
       particles.push(new Particle());
     }
 
+    let canvasAnimationId = null;
     function animateCanvas() {
+      if (document.hidden) {
+        canvasAnimationId = requestAnimationFrame(animateCanvas);
+        return;
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let i = 0; i < particles.length; i++) {
         particles[i].update();
@@ -894,9 +899,9 @@
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
+          if (dist < 110) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(6, 182, 212, ${0.15 * (1 - dist / 120)})`;
+            ctx.strokeStyle = `rgba(6, 182, 212, ${0.12 * (1 - dist / 110)})`;
             ctx.lineWidth = 0.6;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -904,7 +909,7 @@
           }
         }
       }
-      requestAnimationFrame(animateCanvas);
+      canvasAnimationId = requestAnimationFrame(animateCanvas);
     }
     window.onload = function() {
       animateCanvas();
@@ -920,41 +925,63 @@
       link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
     });
 
-    // 3. TYPEWRITER EFFECT
+    // 3. STABILIZED TYPEWRITER (Runs only when user is viewing Hero section)
     const dynamicWords = [
       "Job Portal Backend Engine",
-      "Spring Boot & Hibernate REST APIs",
+      "Spring Boot & Hibernate APIs",
       "Student Management System (CRUD)",
-      "Interactive Full Stack Architectures",
-      "Robust MySQL Database Schemas"
+      "Interactive Full Stack Apps",
+      "Scalable REST Microservices"
     ];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
+    let typewriterTimeout = null;
+    let isHeroVisible = true;
     const typeTarget = document.getElementById('typewriter-text');
 
     function typeWriter() {
+      if (!isHeroVisible) return; // Pause when user scrolls away!
+
       const currentWord = dynamicWords[wordIndex];
       if (isDeleting) {
-        typeTarget.textContent = currentWord.substring(0, charIndex - 1);
+        typeTarget.textContent = currentWord.substring(0, charIndex - 1) || "\u00A0";
         charIndex--;
       } else {
         typeTarget.textContent = currentWord.substring(0, charIndex + 1);
         charIndex++;
       }
 
-      let speed = isDeleting ? 40 : 80;
+      let speed = isDeleting ? 35 : 75;
       if (!isDeleting && charIndex === currentWord.length) {
-        speed = 1800;
+        speed = 2000;
         isDeleting = true;
       } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         wordIndex = (wordIndex + 1) % dynamicWords.length;
-        speed = 350;
+        speed = 400;
       }
-      setTimeout(typeWriter, speed);
+      typewriterTimeout = setTimeout(typeWriter, speed);
     }
-    typeWriter();
+
+    // Hero Section Viewport Observer (Runs animations ONLY when user is there)
+    const heroSection = document.getElementById('hero');
+    if ('IntersectionObserver' in window && heroSection) {
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isHeroVisible = entry.isIntersecting;
+          if (entry.isIntersecting) {
+            clearTimeout(typewriterTimeout);
+            typeWriter();
+          } else {
+            clearTimeout(typewriterTimeout);
+          }
+        });
+      }, { threshold: 0.15 });
+      heroObserver.observe(heroSection);
+    } else {
+      typeWriter();
+    }
 
     // 4. SKILLS FILTERING
     const skillButtons = document.querySelectorAll('.skill-btn');
